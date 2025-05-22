@@ -1,5 +1,5 @@
 # green
-<!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -328,9 +328,9 @@
                 question: "你今天喝飲料，會選擇哪種方式？",
                 options: [
                     { text: "自備環保杯", score: 3 },
-                    { text: "使用紙杯", score: 2 },
-                    { text: "塑膠杯但回收", score: 1 },
-                    { text: "直接丟棄", score: 0 }
+                    { text: "自備環保杯但使用塑膠吸管", score: 2 },
+                    { text: "使用塑膠杯自備環保吸管", score: 1 },
+                    { text: "使用點家提供的塑膠杯及吸管", score: 0 }
                 ]
             },
             {
@@ -339,7 +339,7 @@
                     { text: "騎車或走路", score: 3 },
                     { text: "搭乘大眾運輸", score: 2 },
                     { text: "開車", score: 1 },
-                    { text: "飛出國/搭高碳交通工具", score: 0 }
+                   
                 ]
             },
             {
@@ -354,10 +354,10 @@
             {
                 question: "你在購物時會選擇？",
                 options: [
-                    { text: "環保包裝或裸裝商品", score: 3 },
-                    { text: "回收材質包裝", score: 2 },
-                    { text: "普通商品", score: 1 },
-                    { text: "只看價格", score: 0 }
+                    { text: "環保標章的產品", score: 3 },
+                    { text: "環保材質包裝", score: 2 },
+                    { text: "平價商品", score: 1 },
+                    { text: "只看包裝", score: 0 }
                 ]
             },
             {
@@ -365,7 +365,7 @@
                 options: [
                     { text: "我積極實踐中！", score: 3 },
                     { text: "我開始學習", score: 2 },
-                    { text: "有點遠但有興趣", score: 1 },
+                    { text: "有興趣還沒開始", score: 1 },
                     { text: "沒聽過/不太懂", score: 0 }
                 ]
             }
