@@ -330,15 +330,16 @@
                     { text: "自備環保杯", score: 3 },
                     { text: "自備環保杯但使用塑膠吸管", score: 2 },
                     { text: "使用塑膠杯自備環保吸管", score: 1 },
-                    { text: "使用點家提供的塑膠杯及吸管", score: 0 }
+                    { text: "使用店]家提供的塑膠杯及吸管", score: 0 }
                 ]
             },
             {
                 question: "假日你最常的交通工具？",
                 options: [
-                    { text: "騎車或走路", score: 3 },
+                    { text: "走路或騎腳踏車", score: 3 },
                     { text: "搭乘大眾運輸", score: 2 },
                     { text: "開車", score: 1 },
+                    { text: "騎車", score: 1 },
                    
                 ]
             },
