@@ -1,5 +1,4 @@
-# green
-
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -227,6 +226,39 @@
             font-weight: bold;
         }
 
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .share-btn, .subscribe-btn {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 280px;
+            max-width: 100%;
+        }
+
+        .share-btn:hover, .subscribe-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        .subscribe-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .subscribe-btn:hover {
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+        }
+
         .restart-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -236,6 +268,8 @@
             font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 280px;
+            max-width: 100%;
         }
 
         .restart-btn:hover {
@@ -317,7 +351,11 @@
                     <div class="result-description" id="result-description"></div>
                 </div>
 
-                <button class="restart-btn" onclick="restartQuiz()">🔄 重新測驗</button>
+                <div class="action-buttons">
+                    <button class="share-btn" onclick="shareResult()">📤 分享結果</button>
+                    <button class="subscribe-btn" onclick="subscribeNewsletter()">📧 訂閱綠色電子期刊</button>
+                    <button class="restart-btn" onclick="restartQuiz()">🔄 重新測驗</button>
+                </div>
             </div>
         </div>
     </div>
@@ -325,49 +363,49 @@
     <script>
         const questions = [
             {
-                question: "你今天喝飲料，會選擇哪種方式？",
+                question: "平時喝飲料，你習慣選擇哪種方式？",
                 options: [
                     { text: "自備環保杯", score: 3 },
                     { text: "自備環保杯但使用塑膠吸管", score: 2 },
                     { text: "使用塑膠杯自備環保吸管", score: 1 },
-                    { text: "使用店家提供的塑膠杯及吸管", score: 0 }
+                    { text: "使用點家提供的塑膠杯及吸管", score: 0 }
                 ]
             },
             {
-                question: "假日你最常的交通工具？",
+                question: "日常生活中，你最常的交通工具？",
                 options: [
-                    { text: "走路或騎腳踏車", score: 3 },
+                    { text: "騎腳踏車或走路", score: 3 },
                     { text: "搭乘大眾運輸", score: 2 },
                     { text: "開車", score: 1 },
-                    { text: "騎車", score: 1 },
-                   
+                    { text: "騎機車", score: 0 }
                 ]
             },
             {
-                question: "用餐時你會？",
+                question: "用餐時你會選擇？",
                 options: [
-                    { text: "自備餐具", score: 3 },
-                    { text: "使用可分解餐具", score: 2 },
+                    { text: "自備環保餐具", score: 3 },
+                    { text: "使用可分解材質的餐具", score: 2 },
                     { text: "使用一次性塑膠餐具", score: 1 },
-                    { text: "不在意", score: 0 }
+                    { text: "沒有注意", score: 0 }
                 ]
             },
             {
-                question: "你在購物時會選擇？",
+                question: "你在購物時會選擇什麼樣的產品？",
                 options: [
                     { text: "環保標章的產品", score: 3 },
-                    { text: "環保材質包裝", score: 2 },
-                    { text: "平價商品", score: 1 },
-                    { text: "只看包裝", score: 0 }
+                    { text: "環保材質包裝的產品", score: 2 },
+                    { text: "CP值高的產品", score: 1 },
+                    { text: "只選擇包裝美觀的產品", score: 0 }
                 ]
             },
             {
                 question: "你對低碳經濟的看法？",
                 options: [
-                    { text: "我積極實踐中！", score: 3 },
-                    { text: "我開始學習", score: 2 },
+                    { text: "積極實踐中！", score: 3 },
+                    { text: "開始學習", score: 2 },
                     { text: "有興趣還沒開始", score: 1 },
                     { text: "沒聽過/不太懂", score: 0 }
+                ]
                 ]
             }
         ];
@@ -524,6 +562,158 @@
             
             document.querySelector('.result-screen').classList.remove('active');
             document.querySelector('.welcome-screen').classList.add('active');
+        }
+
+        function shareResult() {
+            const personalityType = getPersonalityType(totalScore);
+            const shareText = `🌍 我剛完成了綠行星人格測驗！\n\n我的結果是：${personalityType.emoji} ${personalityType.title}\n綠色指數：${totalScore}/15\n\n${personalityType.description}\n\n你也來測測看你是哪種環保人格吧！`;
+            
+            // 檢查是否支援 Web Share API
+            if (navigator.share) {
+                navigator.share({
+                    title: '綠行星人格測驗結果',
+                    text: shareText,
+                    url: window.location.href
+                }).then(() => {
+                    console.log('分享成功！');
+                }).catch((error) => {
+                    console.log('分享取消或失敗：', error);
+                });
+            } else {
+                // 備用方案：複製到剪貼簿
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(shareText).then(() => {
+                        alert('✅ 結果已複製到剪貼簿！\n你可以貼到社群媒體分享給朋友。');
+                    }).catch(() => {
+                        // 如果剪貼簿 API 也不支援，顯示文字讓用戶手動複製
+                        showShareModal(shareText);
+                    });
+                } else {
+                    showShareModal(shareText);
+                }
+            }
+        }
+
+        function showShareModal(text) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+            
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                max-width: 500px;
+                width: 90%;
+                max-height: 80%;
+                overflow-y: auto;
+            `;
+            
+            content.innerHTML = `
+                <h3 style="margin-bottom: 15px; color: #333;">📤 分享你的測驗結果</h3>
+                <textarea readonly style="width: 100%; height: 200px; padding: 10px; border: 2px solid #4ecdc4; border-radius: 10px; font-family: inherit; resize: none;">${text}</textarea>
+                <div style="margin-top: 15px; text-align: center;">
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: #4ecdc4; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">關閉</button>
+                </div>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+            
+            // 點擊背景關閉
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
+        }
+
+        function subscribeNewsletter() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+            
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: white;
+                padding: 40px;
+                border-radius: 20px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+            `;
+            
+            content.innerHTML = `
+                <div style="font-size: 3em; margin-bottom: 20px;">🌱</div>
+                <h3 style="color: #4ecdc4; margin-bottom: 15px;">訂閱綠色電子期刊</h3>
+                <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">
+                    獲取最新的環保資訊、永續生活小秘訣，以及專屬的綠色生活指南！
+                </p>
+                <form id="newsletter-form" style="margin-bottom: 20px;">
+                    <input type="email" placeholder="請輸入您的電子信箱" required 
+                           style="width: 100%; padding: 15px; border: 2px solid #e9ecef; border-radius: 25px; margin-bottom: 15px; font-size: 1em; box-sizing: border-box;">
+                    <button type="submit" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 1.1em; cursor: pointer; width: 100%; transition: all 0.3s ease;">
+                        🚀 立即訂閱
+                    </button>
+                </form>
+                <button onclick="this.parentElement.parentElement.remove()" 
+                        style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">
+                    稍後再說
+                </button>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+            
+            // 處理表單提交
+            document.getElementById('newsletter-form').onsubmit = (e) => {
+                e.preventDefault();
+                const email = e.target.querySelector('input[type="email"]').value;
+                
+                // 這裡可以串接真實的電子報訂閱 API
+                setTimeout(() => {
+                    content.innerHTML = `
+                        <div style="font-size: 3em; margin-bottom: 20px;">✅</div>
+                        <h3 style="color: #4ecdc4; margin-bottom: 15px;">訂閱成功！</h3>
+                        <p style="color: #666; margin-bottom: 25px;">
+                            感謝您的訂閱！我們已將確認信寄到 <strong>${email}</strong><br>
+                            請查看您的信箱並點擊確認連結。
+                        </p>
+                        <button onclick="this.parentElement.parentElement.remove()" 
+                                style="background: #4ecdc4; color: white; border: none; padding: 15px 30px; border-radius: 25px; cursor: pointer;">
+                            太棒了！
+                        </button>
+                    `;
+                }, 1000);
+            };
+            
+            // 點擊背景關閉
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
         }
     </script>
 </body>
