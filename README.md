@@ -316,14 +316,14 @@
                     <h2 style="color: #4ecdc4; margin-bottom: 20px;">歡迎來到綠行星！</h2>
                     <p>你是哪種環保人格呢？透過這個簡單的測驗，我們將分析你的綠色生活指數，並為你量身打造專屬的環保人格類型。</p>
                     <br>
-                    <p>測驗只需要 1 分鐘，共 5 個問題。讓我們一起探索你內心的綠色潛能吧！</p>
+                    <p>測驗只需要 3 分鐘，共 10 個問題。讓我們一起探索你內心的綠色潛能吧！</p>
                 </div>
                 <button class="start-btn" onclick="startQuiz()">🚀 開始測驗</button>
             </div>
 
             <!-- 測驗畫面 -->
             <div class="quiz-screen">
-                <div class="question-number">問題 <span id="current-question">1</span> / 5</div>
+                <div class="question-number">問題 <span id="current-question">1</span> / 10</div>
                 <div class="progress-bar">
                     <div class="progress" id="progress-bar"></div>
                 </div>
@@ -342,7 +342,7 @@
             <!-- 結果畫面 -->
             <div class="result-screen">
                 <div class="score-display">
-                    <div class="score-text">你的綠色指數：<span id="total-score">0</span> / 15</div>
+                    <div class="score-text">你的綠色指數：<span id="total-score">0</span> / 30</div>
                 </div>
                 
                 <div class="result-card">
@@ -407,36 +407,82 @@
                     { text: "沒聽過/不太懂", score: 0 }
                 ]
                 
+            },
+        
+            {
+                question: "你會如何處理不要的衣物？",
+                options: [
+                    { text: "送去回收或捐贈", score: 3 },
+                    { text: "重新改造", score: 2 },
+                    { text: "放在家裡等有空再處理", score: 1 },
+                    { text: "丟垃圾桶或不處理", score: 0 }
+                ]
+            },
+            {
+                question: "你是否曾參與或關注與環保、永續相關的活動（如淨灘、社群推廣、工作坊）？",
+                options: [
+                    { text: "經常參加", score: 3 },
+                    { text: "偶爾參加", score: 2 },
+                    { text: "只線上看過相關資訊", score: 1 },
+                    { text: "沒有參加/沒興趣", score: 0 }
+                ]
+            },
+            {
+                question: "你對「碳足跡」這個詞的熟悉程度？",
+                options: [
+                    { text: "了解並關注自己的碳足跡", score: 3 },
+                    { text: "聽過但不熟", score: 2 },
+                    { text: "好像聽過，不太清楚是什麼", score: 1 },
+                    { text: "沒聽過", score: 0 }
+                ]
+            },
+            {
+                question: "你在家中會做哪些節能行動？（請選最常做的）",
+                options: [
+                    { text: "使用節能家電並定期檢查耗電狀況", score: 3 },
+                    { text: "照明、冷氣有開就關的習慣", score: 2 },
+                    { text: "偶爾會注意到就關", score: 1 },
+                    { text: "幾乎沒注意過這件事", score: 0 }
+                ]
+            },
+            {
+                question: "你在社群媒體上有轉發或創作關於永續、環保的內容嗎？",
+                options: [
+                    { text: "經常分享，甚至自己創作", score: 3 },
+                    { text: "偶爾轉發別人的貼文", score: 2 },
+                    { text: "看過但沒動作", score: 1 },
+                    { text: "沒興趣、不會特別看", score: 0 }
+                ]
             }
         ];
 
         const personalityTypes = {
-            warrior: {
-                emoji: "🌿",
-                title: "綠色鬥士型 (Green Warrior)",
-                description: "你是環保界的行動派，每個生活細節都在實踐永續。你不只是說說而已，而是真正的綠色生活實踐者！✔ 你超棒的！可再進一步挑戰：減塑生活、參加淨灘或氣候倡議活動，影響更多人一起加入！",
-                range: [13, 15]
-            },
-            everyday: {
-                emoji: "🌱",
-                title: "日常實踐者型 (Eco Everydayist)",
-                description: "你穩定地做著力所能及的綠色選擇。雖然不是最極端的環保主義者，但你的日常行為已經為地球做出了實質貢獻！✔ 很好喔~可再進一步：記錄自己的低碳行為，設定一週一個新挑戰，例如：一週無外帶餐盒！",
+    warrior: {
+        emoji: "🌿",
+        title: "綠色鬥士型 (Green Warrior)",
+        description: "你是環保界的行動派，每個生活細節都在實踐永續。你不只是說說而已，而是真正的綠色生活實踐者！🌟你超棒的！可再進一步挑戰：減塑生活、參加淨灘或氣候倡議活動，影響更多人一起加入！",
+        range: [25, 30]
+    },
+    everyday: {
+        emoji: "🌱",
+        title: "日常實踐者型 (Eco Everydayist)",
+        description: "你穩定地做著力所能及的綠色選擇。雖然不是最極端的環保主義者，但你的日常行為已經為地球做出了實質貢獻！🌟很好喔~可再進一步：記錄自己的低碳行為，設定一週一個新挑戰，例如：一週無外帶餐盒！",
+        range: [18, 24]
+    },
+    explorer: {
+        emoji: "🌤",
+        title: "潛力型綠人 (Sustainability Explorer)",
+        description: "你對永續有興趣，但生活中還有提升空間。你已經踏出了第一步，繼續保持這份好奇心和行動力！🌟相信你可以的，試著從日常做起：開始自備環保杯、餐具，或試著搭大眾運輸一天看看，你會發現綠色其實不難！",
+        range: [10, 17]
+    },
+    watcher: {
+        emoji: "🪐",
+        title: "冷感觀察者型 (Eco Watcher)",
+        description: "你可能對環保話題還不太關心，但今天是一個很好的開始！每個人都可以從小地方開始為地球盡一份心力。🌟現在開始也不晚！從一個小動作開始：少用一根吸管、多關一次電燈，或看看朋友都在怎麼做，讓綠色不再遙遠！",
+        range: [0, 9]
+    }
+};
 
-                range: [10, 12]
-            },
-            explorer: {
-                emoji: "🌤",
-                title: "潛力型綠人 (Sustainability Explorer)",
-                description: "你對永續有興趣，但生活中還有提升空間。你已經踏出了第一步，繼續保持這份好奇心和行動力！✔相信你可以的，試著從日常做起：開始自備環保杯、餐具，或試著搭大眾運輸一天看看，你會發現綠色其實不難！",
-                range: [6, 9]
-            },
-            watcher: {
-                emoji: "🪐",
-                title: "冷感觀察者型 (Eco Watcher)",
-                description: "你可能對環保話題還不太關心，但今天是一個很好的開始！每個人都可以從小地方開始為地球盡一份心力。✔ ㄧ現在開始也不晚！從一個小動作開始：少用一根吸管、多關一次電燈，或看看朋友都在怎麼做，讓綠色不再遙遠！",
-                range: [0, 5]
-            }
-        };
 
         let currentQuestion = 0;
         let answers = [];
@@ -567,7 +613,7 @@
 
         function shareResult() {
             const personalityType = getPersonalityType(totalScore);
-            const shareText = `🌍 我剛完成了綠行星人格測驗！\n\n我的結果是：${personalityType.emoji} ${personalityType.title}\n綠色指數：${totalScore}/15\n\n${personalityType.description}\n\n你也來測測看你是哪種環保人格吧！`;
+            const shareText = `🌍 我剛完成了綠行星人格測驗！\n\n我的結果是：${personalityType.emoji} ${personalityType.title}\n綠色指數：${totalScore}/30\n\n${personalityType.description}\n\n你也來測測看你是哪種環保人格吧！`;
             
             // 檢查是否支援 Web Share API
             if (navigator.share) {
